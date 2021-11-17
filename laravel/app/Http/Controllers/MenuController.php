@@ -23,13 +23,14 @@ class MenuController extends Controller
             }
         } catch (Exception $e) {
             $roles = '';
-        }   
+        }
         if($request->has('menu')){
             $menuName = $request->input('menu');
         }else{
             $menuName = 'sidebar menu';
         }
         $menus = new GetSidebarMenu();
+
         return response()->json( $menus->get( $roles, $menuName ) );
     }
 

@@ -4,6 +4,10 @@ import Router from 'vue-router'
 // Containers
 const TheContainer = () => import('@/containers/TheContainer')
 
+// Menu Legal
+
+const documents = () => import('@/views/Legals/Expediente');
+
 // Views
 const Dashboard = () => import('@/views/Dashboard')
 
@@ -153,6 +157,15 @@ function configRoutes () {
       name: 'Home',
       component: TheContainer,
       children: [
+        // nuevos menus
+        {
+          path: 'documents',
+          name: 'Documentos',
+          component: documents,
+          meta: {
+            requiresAdmin: false
+          }
+        },
         {
           path: 'media',
           name: 'Media',

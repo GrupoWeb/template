@@ -1,20 +1,24 @@
 <template>
-  <CSidebar 
-    fixed 
+  <CSidebar
+    fixed
     :minimize="minimize"
     :show="show"
     @update:show="(value) => $store.commit('set', ['sidebarShow', value])"
   >
-    <CSidebarBrand class="d-md-down-none" to="/">
-      <CIcon 
-        class="d-block" 
-        name="logo" 
-        size="custom-size" 
-        :height="35" 
-        :viewBox="`0 0 ${minimize ? 110 : 556} 134`"
-      />
-    </CSidebarBrand>
+<!--    logo sidebar-->
+<!--    <CSidebarBrand class="d-md-down-none" to="/">-->
+<!--      <CIcon-->
+<!--        class="d-block"-->
+<!--        name="logo"-->
+<!--        size="custom-size"-->
+<!--        :height="35"-->
+<!--        :viewBox="`0 0 ${minimize ? 110 : 556} 134`"-->
+<!--      />-->
+<!--    </CSidebarBrand>-->
+
+<!--    muestra el menu-->
     <CRenderFunction flat :content-to-render="nav"/>
+<!--    muestra el boton para minimizar-->
     <CSidebarMinimizer
       class="d-md-down-none"
       @click.native="$store.commit('set', ['sidebarMinimize', !minimize])"
@@ -36,10 +40,10 @@ export default {
   },
   computed: {
     show () {
-      return this.$store.state.sidebarShow 
+      return this.$store.state.sidebarShow
     },
     minimize () {
-      return this.$store.state.sidebarMinimize 
+      return this.$store.state.sidebarMinimize
     }
   },
   methods: {
@@ -61,14 +65,14 @@ export default {
                    name:   data['elements'][i]['name'],
                    to:     data['elements'][i]['href'],
                    icon:   data['elements'][i]['icon']
-            } 
+            }
           );
         }
       }
       return result;
     },
     rebuildData(data){
-      this.buffor = [{    
+      this.buffor = [{
         _name: 'CSidebarNav',
         _children: []
       }];
@@ -128,6 +132,7 @@ export default {
     axios.get( this.$apiAdress + '/api/menu?token=' + localStorage.getItem("api_token") )
     .then(function (response) {
       self.nav = self.rebuildData(response.data);
+      console.log('response ', response)
     }).catch(function (error) {
       console.log(error);
       self.$router.push({ path: '/login' });

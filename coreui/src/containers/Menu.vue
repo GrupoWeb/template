@@ -1,6 +1,6 @@
 <template>
     <CHeaderNav class="d-md-down-none mr-auto">
-      <CHeaderNavItem 
+      <CHeaderNavItem
         v-for="n in nav"
         v-bind:key="n.name"
       >
@@ -20,7 +20,7 @@
               {{ n.name }}
             </a>
           </template>
-          <CDropdownItem 
+          <CDropdownItem
             v-for="d in n._children"
             v-bind:key="d.name"
             :href="'#' + d.to"
@@ -63,7 +63,7 @@ export default {
                    name:   data['elements'][i]['name'],
                    to:     data['elements'][i]['href'],
                    icon:   data['elements'][i]['icon']
-            } 
+            }
           );
         }
       }
