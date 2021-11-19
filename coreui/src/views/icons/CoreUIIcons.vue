@@ -43,6 +43,7 @@ export default {
   freeSet,
   methods: {
     toKebabCase (str) {
+      console.log(str)
       return str.replace(/([a-z])([A-Z0-9])/g, '$1-$2').toLowerCase()
     }
   }

@@ -120,6 +120,7 @@ export default {
     },
     getUsers (){
       let self = this;
+      console.log(' token: ', localStorage.getItem("api_token"))
       axios.get(  this.$apiAdress + '/api/users?token=' + localStorage.getItem("api_token"))
       .then(function (response) {
         self.items = response.data.users;

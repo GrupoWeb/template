@@ -6,17 +6,17 @@
           User id:  {{ $route.params.id }}
         </CCardHeader>
         <CCardBody>
-          <CDataTable 
-            striped 
-            small 
+          <CDataTable
+            striped
+            small
             fixed
-            :items="items" 
+            :items="items"
             :fields="fields"
           >
             <template slot="value" slot-scope="data">
               <strong>{{data.item.value}}</strong>
             </template>
-          </CDataTable>  
+          </CDataTable>
         </CCardBody>
         <CCardFooter>
           <CButton color="primary" @click="goBack">Back</CButton>
@@ -51,6 +51,7 @@ export default {
   },
   mounted: function(){
     let self = this;
+
     axios.get(  this.$apiAdress + '/api/users/' + self.$route.params.id + '?token=' + localStorage.getItem("api_token"))
     .then(function (response) {
       const items = Object.entries(response.data);

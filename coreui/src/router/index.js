@@ -142,7 +142,19 @@ router.beforeEach((to, from, next) => {
         params: { nextUrl: to.fullPath }
       })
     }
-  }else{
+  }else if(to.matched.some(record => record.meta.requiresLegal)){
+    if(roles != null && roles.indexOf('legal') >= 0){
+      next()
+    }else if(roles != null && roles.indexOf('admin') >= 0 ) {
+      next()
+    }else{
+      next({
+        path: '/login',
+        params: { nextUrl: to.fullPath }
+      })
+    }
+  }
+  else{
     next()
   }
 })
@@ -163,7 +175,8 @@ function configRoutes () {
           name: 'Documentos',
           component: documents,
           meta: {
-            requiresAdmin: false
+            requiresLegal: true,
+
           }
         },
         {

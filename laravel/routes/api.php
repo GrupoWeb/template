@@ -13,9 +13,27 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('ver', 'LegalController@getLegal');
+
 
 Route::group(['middleware' => 'api'], function ($router) {
+
+    /*
+    |--------------------------------------------------------------------------
+    | API Routes Legal
+    |--------------------------------------------------------------------------
+    |
+    | Author: Juan José Jolón
+    |
+    */
+    Route::get('ver', 'LegalController@getRegisterByUser');
+    Route::post('historyLegal','LegalController@getEventByExp');
+    Route::get('getEvent','LegalController@getEvent');
+
+
+    /*
+    |--------------------------------------------------------------------------
+    */
+
     Route::get('menu', 'MenuController@index');
 
     Route::post('login', 'AuthController@login');

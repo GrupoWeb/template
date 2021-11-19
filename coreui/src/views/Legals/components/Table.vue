@@ -2,21 +2,21 @@
   <CCard>
     <CCardHeader>
       <slot name="header">
-        <CIcon name="cil-grid"/> 
+        <CIcon name="cil-grid"/> {{caption}}
       </slot>
     </CCardHeader>
     <CCardBody>
       <CDataTable
-        :hover="hover"
-        :striped="striped"
-        :bordered="bordered"
-        :small="small"
-        :fixed="fixed"
-        :items="items"
-        :fields="fields"
-        :items-per-page="small ? 10 : 5"
-        :dark="dark"
-        pagination
+          :hover="hover"
+          :striped="striped"
+          :bordered="bordered"
+          :small="small"
+          :fixed="fixed"
+          :items="items"
+          :fields="fields"
+          :items-per-page="small ? 10 : 5"
+          :dark="dark"
+          pagination
       >
         <template #status="{item}">
           <td>
@@ -53,9 +53,9 @@ export default {
   methods: {
     getBadge (status) {
       return status === 'Active' ? 'success'
-        : status === 'Inactive' ? 'secondary'
-          : status === 'Pending' ? 'warning'
-            : status === 'Banned' ? 'danger' : 'primary'
+          : status === 'Inactive' ? 'secondary'
+              : status === 'Pending' ? 'warning'
+                  : status === 'Banned' ? 'danger' : 'primary'
     }
   }
 }
