@@ -10,6 +10,7 @@ use App\Models\Legal\expjuridico;
 use App\Models\Legal\evjuridico;
 use App\Models\Legal\jevento;
 use Illuminate\Support\Facades\DB;
+use App\Models\legalHasUser;
 
 
 class LegalController extends Controller
@@ -49,7 +50,7 @@ class LegalController extends Controller
     }
 
     public function getEvent(){
-        $event = jevento::select('id_jevento','evento')->get();
+        $event = jevento::select('id_jevento','evento')->where(['tipo' => 2])->get();
 
         return response()->json($event, Response::HTTP_OK);
     }
@@ -62,20 +63,23 @@ class LegalController extends Controller
             $fanio = date('Y');
             $fecha = date('Y-m-d');
 
+            $user_id = $this->getUserRegister();
+            $user_id = $user_id[0]['id_juridicos'];
+
 
             $setEvent = new evjuridico;
 
-            $setEvent->expediente = $request->expediente;
+            $setEvent->expediente = $request->expediente; //post
             $setEvent->fdia = $fdia;
             $setEvent->fmes = $fmes;
             $setEvent->fanio = $fanio;
             $setEvent->fecha = $fecha;
-            $setEvent->id_jevento = $request->evento;
-            $setEvent->id_regional = $request->regional;
-            $setEvent->observaciones = $request->observacion;
-            $setEvent->usuario = $request->usuario;
-            $setEvent->ncomercial = $request->comercial;
-            $setEvent->id_juridicos = $request->juridico;
+            $setEvent->id_jevento = $request->evento; //post
+            $setEvent->id_regional = 1; //OPCIONAL (0)
+            $setEvent->observaciones = $request->observaciones; //post
+            $setEvent->usuario = $user_id; //post
+            $setEvent->ncomercial = $request->comercial; // post
+            $setEvent->id_juridicos = $user_id; //post
             $setEvent->save();
 
             /*
@@ -94,17 +98,16 @@ class LegalController extends Controller
 
     protected function getRegisterByUser()
     {
-//         $user_id = $this->getUserRegister();
-//         $user_id = $user_id[0]['id_legal'];
-        $data = expjuridico::selectRaw('expediente as Expediente,ncomercial as Procedencia,DATE_FORMAT(fecha,"%d-%m-%Y") as Fecha,observaciones as Descripción,id_jevento,id_texpj')->get();
-//         ->where(['id_juridicos' => $user_id])->get();
+         $user_id = $this->getUserRegister();
+         $user_id = $user_id[0]['id_juridicos'];
+         $data = expjuridico::selectRaw('expediente as Expediente,ncomercial as Procedencia,DATE_FORMAT(fecha,"%d-%m-%Y") as Fecha,observaciones as Descripción,id_jevento,id_texpj')->where(['id_juridicos' => $user_id])->orderBy('fecha')->get();
 
-        return response()->json($data, Response::HTTP_OK);
+         return response()->json($data, Response::HTTP_OK);
     }
 
     protected function getUserRegister()
     {
-        $data = userLegal::select('id_legal')->where(['user_id' =>  Auth::user()->id])->get();
+        $data = legalHasUser::select('id_juridicos')->where(['user_id' =>  Auth::user()->id])->get();
         return $data;
     }
 }

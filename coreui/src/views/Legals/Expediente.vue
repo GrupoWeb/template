@@ -9,8 +9,10 @@
             hover
             striped
             border
+            :table-filter='{ placeholder : "Ingrese expediente", label: "Búsqueda:" }'
             :fields="fiedlObject"
             :items="items"
+            :items-per-page-select="{ label: 'Cantidad'}"
             :items-per-page="8"
             pagination
             caption="Listado de Expedientes"
@@ -20,7 +22,7 @@
             <td>
               <div>
                 <CButtonGroup>
-                  <CButton color="success" @click="showHistoryLegal(item.Expediente)">Historial</CButton>
+                  <CButton color="success" @click="showHistoryLegal(item.Expediente, item.Procedencia, item.id_jevento, item.id_texpj)">Historial</CButton>
                   <CButton color="primary" @click="EventoModal = true">Contrato</CButton>
                   <CButton color="danger" @click="showUser( item.id )">Finalizar</CButton>
                   <CButton color="warning" @click="TransferModal = true">Transferir</CButton>
@@ -48,14 +50,16 @@
                 label="Seguimiento:"
                 placeholder="Contenido..."
                 rows="5"
+                v-model="Modals.ModalHistory.data.observacion"
             />
             <CSelect
                 label="Evento:"
                 :options="optionsEvent"
                 placeholder="Seleccione..."
+                :value.sync="Modals.ModalHistory.data.select"
             />
             <CCardFooter>
-              <CButton  size="sm" color="success"><CIcon name="cil-check-circle"/> Agregar</CButton>
+              <CButton  size="sm" color="success" @click="setComment"><CIcon name="cil-check-circle"/> Agregar</CButton>
             </CCardFooter>
           </CForm>
           <CDataTable
@@ -180,7 +184,15 @@ export default {
           title: '',
           size: 'xl',
           close: false,
-          color: 'info'
+          color: 'info',
+          data: {
+            expediente: '',
+            procedencia: '',
+            evento: '',
+            text: '',
+            observacion: '',
+            select: ''
+          }
         }
       }
     }
@@ -200,9 +212,13 @@ export default {
         this.$router.push({ path: '/login' });
       })
     },
-    showHistoryLegal(number){
+    showHistoryLegal(number, precedent, event, text){
       this.HistorialModal = true
       this.Modals.ModalHistory.title = 'Historial del Expediente No. ' + number
+      this.Modals.ModalHistory.data.expediente = number
+      this.Modals.ModalHistory.data.procedencia = precedent
+      this.Modals.ModalHistory.data.evento = event
+      this.Modals.ModalHistory.data.text = text
       axios.post(this.$apiAdress + api_router[0].historyLegal + '?token=' + localStorage.getItem("api_token"), {
         code: number
       }).then(response => {
@@ -228,6 +244,19 @@ export default {
           )
         })
         console.log(this.optionsEvent)
+      })
+    },
+    setComment(){
+      console.log()
+      console.log()
+      axios.post(this.$apiAdress + api_router[0].setEvent + '?token=' + localStorage.getItem("api_token"), {
+        expediente: this.Modals.ModalHistory.data.expediente,
+        evento: this.Modals.ModalHistory.data.select,
+        observaciones: this.Modals.ModalHistory.data.observacion,
+        comercial: this.Modals.ModalHistory.data.procedencia
+      })
+      .then(response => {
+        console.log(response.data)
       })
     }
   }

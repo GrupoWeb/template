@@ -2,29 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc072df0-6b0e-4dd8-a051-049b6446b311" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/template.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coreui/src/router/router_path.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/coreui/src/views/Legals/components/Table.vue" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/evjuridico.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/expjuridico.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/jevento.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/juridicos.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coreui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/assets/icons/icons.js" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/assets/icons/icons.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coreui/src/router/router_path.js" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/router/router_path.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coreui/src/views/Legals/Expediente.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/views/Legals/Expediente.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/views/base/Table.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/views/base/Table.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/views/icons/CoreUIIcons.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/views/icons/CoreUIIcons.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/views/users/User.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/views/users/User.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/views/users/Users.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/views/users/Users.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laravel/app/Http/Controllers/LegalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/app/Http/Controllers/LegalController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laravel/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laravel/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -184,6 +168,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="mysql" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
