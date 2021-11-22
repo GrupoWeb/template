@@ -12,4 +12,6 @@ class jevento extends Model
     protected $connection = 'mysql_diaco';
 
     protected $table = 'jevento';
+
+    public $timestamps = false;
 }

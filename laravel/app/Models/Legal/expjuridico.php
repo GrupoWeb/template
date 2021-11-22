@@ -11,4 +11,6 @@ class expjuridico extends Model
     protected $connection = 'mysql_diaco';
 
     protected $table = 'expjuridico';
+
+    public $timestamps = false;
 }

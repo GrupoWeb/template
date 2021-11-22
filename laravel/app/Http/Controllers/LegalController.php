@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Legal\departamentos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Response;
-use App\Models\Legal\juridicos;
+use App\Models\Legal\contratos;
 use App\Models\Legal\expjuridico;
 use App\Models\Legal\evjuridico;
 use App\Models\Legal\jevento;
 use Illuminate\Support\Facades\DB;
 use App\Models\legalHasUser;
+use App\Models\Legal\juridicos;
+
 
 
 class LegalController extends Controller
@@ -36,6 +39,7 @@ class LegalController extends Controller
                 $expediente = evjuridico::selectRaw('DATE_FORMAT(evjuridico.fecha,"%d-%m-%Y") as Fecha, jevento.evento, evjuridico.observaciones, juridicos.nombre')
                     ->join('jevento','evjuridico.id_jevento','=','jevento.id_jevento')
                     ->join('juridicos','evjuridico.id_juridicos','=','juridicos.id_juridicos')
+                    ->orderBy('evjuridico.fecha', 'desc')
                     ->where(['evjuridico.expediente' => $request->code])
                     ->get();
             DB::commit();
@@ -55,8 +59,17 @@ class LegalController extends Controller
         return response()->json($event, Response::HTTP_OK);
     }
 
+    public function getUserLegal(){
+        $user = juridicos::selectRaw('id_juridicos as code, nombre as user_name')->get();
+
+        return response()->json($user, Response::HTTP_OK);
+    }
+
     public function setEvent(Request $request){
+
         try {
+
+            DB::beginTransaction();
 
             $fdia = date('j');
             $fmes = date('m');
@@ -69,32 +82,129 @@ class LegalController extends Controller
 
             $setEvent = new evjuridico;
 
-            $setEvent->expediente = $request->expediente; //post
+            $setEvent->expediente = $request->expediente;
             $setEvent->fdia = $fdia;
             $setEvent->fmes = $fmes;
             $setEvent->fanio = $fanio;
             $setEvent->fecha = $fecha;
-            $setEvent->id_jevento = $request->evento; //post
-            $setEvent->id_regional = 1; //OPCIONAL (0)
-            $setEvent->observaciones = $request->observaciones; //post
-            $setEvent->usuario = $user_id; //post
-            $setEvent->ncomercial = $request->comercial; // post
-            $setEvent->id_juridicos = $user_id; //post
+            $setEvent->id_jevento = $request->evento;
+            $setEvent->id_regional = 1;
+            $setEvent->observaciones = $request->observaciones;
+            $setEvent->usuario = $user_id;
+            $setEvent->ncomercial = $request->comercial;
+            $setEvent->id_juridicos = $user_id;
             $setEvent->save();
 
-            /*
-             * expediente
-             * fdia, fmes, fanio, fecha (date php)
-             * observaciones
-             * id evento
-             * ncomercial = usuario logiado
-             * id_juridico = usuario juridico logeado
-             * usuario = usuario juridico logeado
-             * */
+            if ($request->flag) {
+                $update = $this->updatedHistoryDocument($fdia, $fmes, $fanio, $fecha, $request->evento, $request->observaciones, $request->user_id, $request->expediente);
+            }else if( $request->flag === false){
+                $update = $this->DeleteHistoryDocument($fdia, $fmes, $fanio, $fecha, $request->evento, $request->observaciones, $request->user_id, $request->expediente);
+                $delete = $this->UpdatedContratoDocument($request->aprobacion, $request->expediente);
+            }else {
+                $update = $this->updatedHistoryDocument($fdia, $fmes, $fanio, $fecha, $request->evento, $request->observaciones, $user_id, $request->expediente);
+            }
+
+
+            DB::commit();
+            return response()->json($update, Response::HTTP_ACCEPTED);
+
         }catch (\Throwable $err){
+            DB::rollBack();
+            return response()->json($err, Response::HTTP_BAD_REQUEST);
+        }
+    }
+
+    public function updatedHistoryDocument($day , $month, $year, $date, $event, $obs, $user, $code){
+        Try {
+
+            DB::beginTransaction();
+
+            $update = expjuridico::where(['expediente' => $code])->update([
+                'fdia'          =>  $day,
+                'fmes'          =>  $month,
+                'fanio'         =>  $year,
+                'fecha'         =>  $date,
+                'id_jevento'    =>  $event,
+                'observaciones'  =>  $obs,
+                'usuario'       =>  $user,
+                'id_juridicos'  =>  $user
+            ]);
+
+            DB::commit();
+
+            return response()->json($update , Response::HTTP_ACCEPTED);
+
+        }catch (\Throwable $err){
+            DB::rollBack();
+            return response($err, Response::HTTP_BAD_REQUEST);
 
         }
     }
+
+
+    public function UpdatedContratoDocument($checked, $code){
+        Try {
+
+            DB::beginTransaction();
+
+            $update = contratos::where(['registro' => $code])->update([
+                'status'        =>  '-50',
+                'centinela'     =>  1,
+                'caprobacion'   =>  $checked
+            ]);
+
+            DB::commit();
+
+            return response()->json($update , Response::HTTP_ACCEPTED);
+
+        }catch (\Throwable $err){
+            DB::rollBack();
+            return response($err, Response::HTTP_BAD_REQUEST);
+
+        }
+    }
+
+    public function DeleteHistoryDocument($day , $month, $year, $date, $event, $obs, $user, $code){
+        Try {
+
+            DB::beginTransaction();
+
+            $update = expjuridico::where(['expediente' => $code])->update([
+                'fdia'          =>  $day,
+                'fmes'          =>  $month,
+                'fanio'         =>  $year,
+                'fecha'         =>  $date,
+                'id_jevento'    =>  $event,
+                'observaciones'  =>  $obs,
+                'usuario'       =>  $user,
+                'id_juridicos'  =>  $user,
+                'status'        =>  '-50',
+                'fechasalida'   =>  $date
+            ]);
+
+            DB::commit();
+
+            return response()->json($update , Response::HTTP_ACCEPTED);
+
+        }catch (\Throwable $err){
+            DB::rollBack();
+            return response($err, Response::HTTP_BAD_REQUEST);
+
+        }
+    }
+
+    protected  function getInfoByCode(Request $request){
+        $info = contratos::join('departamentos','departamentos.id_deptos','=','contratos.id_deptos')
+        ->join('regional','regional.id_regional','=','contratos.id_regional')
+        ->join('usuarios','contratos.usuario','=','usuarios.id')
+        ->selectRaw('contratos.registro, contratos.nempresa, contratos.rlegal, contratos.ncomercial, contratos.direccion, contratos.zona, contratos.colonia, contratos.nit, contratos.municipio, contratos.telefono1, contratos.fax, contratos.email, concat(contratos.fdia, "/",
+        contratos.fmes, "/", contratos.fanio) as fecha, usuarios.usuario, departamentos.nombre_deptos, regional.nombre_r, contratos.f63a, contratos.patente')
+        ->where(['contratos.registro' => $request->code])
+        ->get();
+
+        return $info;
+    }
+
 
     protected function getRegisterByUser()
     {

@@ -13,6 +13,8 @@ class evjuridico extends Model
 
     protected $table = 'evjuridico';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'expediente',
         'fdia',
