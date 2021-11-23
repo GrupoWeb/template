@@ -2,30 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc072df0-6b0e-4dd8-a051-049b6446b311" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/contratos.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/departamentos.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/regional.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/containers/Menu.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/containers/Menu.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/containers/TheHeader.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/containers/TheHeader.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/containers/TheHeaderDropdownAccnt.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/containers/TheHeaderDropdownAccnt.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/router/router_path.js" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/router/router_path.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/views/Dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/views/Dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/views/Legals/Expediente.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/views/Legals/Expediente.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/coreui/src/views/pages/Login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/views/pages/Login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/app/Http/Controllers/LegalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/app/Http/Controllers/LegalController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/app/Models/Legal/evjuridico.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/evjuridico.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/app/Models/Legal/expjuridico.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/expjuridico.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/app/Models/Legal/jevento.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/jevento.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/app/Models/Legal/juridicos.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/app/Models/Legal/juridicos.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/resources/views/coreui/homepage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/resources/views/coreui/homepage.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +169,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../RUG/codigo_fuente_2021/RUG" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
