@@ -147,6 +147,8 @@ router.beforeEach((to, from, next) => {
       next()
     }else if(roles != null && roles.indexOf('admin') >= 0 ) {
       next()
+    }else if (roles != null && roles.indexOf('admin_legal') >= 0){
+      next()
     }else{
       next({
         path: '/login',

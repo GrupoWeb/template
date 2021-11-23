@@ -31,6 +31,7 @@ Route::group(['middleware' => 'api'], function ($router) {
     Route::post('setEvent', 'LegalController@setEvent');
     Route::post('getInfoByCode', 'LegalController@getInfoByCode');
     Route::get('getUserLegal', 'LegalController@getUserLegal');
+    Route::get('getUserRole','LegalController@getUserRole');
 
 
     /*

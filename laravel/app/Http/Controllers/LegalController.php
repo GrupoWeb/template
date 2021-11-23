@@ -31,6 +31,12 @@ class LegalController extends Controller
         return response()->json($legal);
     }
 
+    public function getUserRole(){
+        $role = Auth::user();
+
+        return $role;
+    }
+
     public function getEventByExp(Request $request): \Illuminate\Http\JsonResponse
     {
 
@@ -80,6 +86,8 @@ class LegalController extends Controller
             $user_id = $user_id[0]['id_juridicos'];
 
 
+
+
             $setEvent = new evjuridico;
 
             $setEvent->expediente = $request->expediente;
@@ -95,12 +103,12 @@ class LegalController extends Controller
             $setEvent->id_juridicos = $user_id;
             $setEvent->save();
 
-            if ($request->flag) {
+            if ($request->flag === true) {
                 $update = $this->updatedHistoryDocument($fdia, $fmes, $fanio, $fecha, $request->evento, $request->observaciones, $request->user_id, $request->expediente);
             }else if( $request->flag === false){
-                $update = $this->DeleteHistoryDocument($fdia, $fmes, $fanio, $fecha, $request->evento, $request->observaciones, $request->user_id, $request->expediente);
-                $delete = $this->UpdatedContratoDocument($request->aprobacion, $request->expediente);
-            }else {
+                $update = $this->DeleteHistoryDocument($fdia, $fmes, $fanio, $fecha, $request->evento, $request->observaciones, $user_id, $request->expediente);
+                $delete = $this->UpdatedContratoDocument($request->expediente);
+            }else if($request->flag === null) {
                 $update = $this->updatedHistoryDocument($fdia, $fmes, $fanio, $fecha, $request->evento, $request->observaciones, $user_id, $request->expediente);
             }
 
@@ -142,7 +150,7 @@ class LegalController extends Controller
     }
 
 
-    public function UpdatedContratoDocument($checked, $code){
+    public function UpdatedContratoDocument($code){
         Try {
 
             DB::beginTransaction();
@@ -150,7 +158,7 @@ class LegalController extends Controller
             $update = contratos::where(['registro' => $code])->update([
                 'status'        =>  '-50',
                 'centinela'     =>  1,
-                'caprobacion'   =>  $checked
+                'caprobacion'   =>  $code
             ]);
 
             DB::commit();
@@ -210,7 +218,16 @@ class LegalController extends Controller
     {
          $user_id = $this->getUserRegister();
          $user_id = $user_id[0]['id_juridicos'];
-         $data = expjuridico::selectRaw('expediente as Expediente,ncomercial as Procedencia,DATE_FORMAT(fecha,"%d-%m-%Y") as Fecha,observaciones as Descripción,id_jevento,id_texpj')->where(['id_juridicos' => $user_id])->orderBy('fecha')->get();
+         $role_user = Auth::user()->menuroles;
+         $roles = explode(',', $role_user);
+         if(in_array('admin_legal', $roles)){
+             $data = expjuridico::selectRaw('expediente as Expediente,ncomercial as Procedencia,DATE_FORMAT(fecha,"%d-%m-%Y") as Fecha,observaciones as Descripción,id_jevento,id_texpj')
+                 ->orderBy('fecha')->get();
+         }else{
+             $data = expjuridico::selectRaw('expediente as Expediente,ncomercial as Procedencia,DATE_FORMAT(fecha,"%d-%m-%Y") as Fecha,observaciones as Descripción,id_jevento,id_texpj')
+                 ->where(['id_juridicos' => $user_id, 'status' => 1])->orderBy('fecha')->get();
+         }
+
 
          return response()->json($data, Response::HTTP_OK);
     }

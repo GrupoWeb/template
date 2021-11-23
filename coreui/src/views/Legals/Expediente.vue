@@ -6,10 +6,9 @@
       </CCardHeader>
       <CCardBody>
         <CDataTable
-
+            columnFilter
             striped
             border
-            :table-filter='{ placeholder : "Ingrese expediente", label: "Búsqueda:" }'
             :fields="fiedlObject"
             :items="items"
             :items-per-page-select="{ label: 'Cantidad'}"
@@ -24,9 +23,9 @@
                 <CButtonGroup>
                   <CButton color="success" @click="showHistoryLegal(item.Expediente, item.Procedencia, item.id_jevento, item.id_texpj)">Historial</CButton>
                   <CButton color="primary" @click="getInfo(item.Expediente)">Contrato</CButton>
-                  <CButton color="warning" @click="transferData(item.Expediente, item.Procedencia, item.id_jevento, item.id_texpj)">Transferir</CButton>
-                  <CButton color="danger"  @click="fileData(item.Expediente, item.Procedencia, item.id_jevento, item.id_texpj)">Archivar</CButton>
-                  <CButton color="success" @click="showUser( item.id )">Aprobar</CButton>
+                  <CButton v-if="is_admin" color="warning" @click="transferData(item.Expediente, item.Procedencia, item.id_jevento, item.id_texpj)">Transferir</CButton>
+                  <CButton color="danger"  @click="fileData(item.Expediente, item.Procedencia, item.id_jevento, item.id_texpj, 'Archivar', 19, 'danger')">Archivar</CButton>
+                  <CButton color="success" @click="fileData(item.Expediente, item.Procedencia, item.id_jevento, item.id_texpj, 'Aprobar', 14, 'info')">Aprobar</CButton>
 
                 </CButtonGroup>
               </div>
@@ -35,7 +34,7 @@
         </CDataTable>
       </CCardBody>
     </CCard>
-<!--    Modales-->
+<!--    historial-->
     <CModal
         :title="Modals.ModalHistory.title"
         :color="Modals.ModalHistory.color"
@@ -46,12 +45,13 @@
     >
       <CCard>
         <CCardBody>
-          <CForm>
+          <CForm >
             <CTextarea
                 label="Seguimiento:"
                 placeholder="Contenido..."
                 rows="5"
                 v-model="Modals.ModalHistory.data.observacion"
+
             />
             <CSelect
                 label="Evento:"
@@ -96,6 +96,7 @@
       </template>
     </CModal>
 
+<!--    contrato-->
     <CModal
         :title="Modals.ModalContrato.title"
         :color="Modals.ModalContrato.color"
@@ -109,6 +110,7 @@
       </template>
     </CModal>
 
+<!--    transferir-->
     <CModal
         :title="Modals.ModalTransfer.title"
         :color="Modals.ModalTransfer.color"
@@ -142,6 +144,7 @@
       </template>
     </CModal>
 
+<!--    archivar / Aprobar  -->
     <CModal
         :title="Modals.ModalArchivar.title"
         :color="Modals.ModalArchivar.color"
@@ -159,8 +162,8 @@
 
       </CForm>
       <template #footer>
-        <CButton @click="closeModal('Transfer')" color="danger">Cerrar</CButton>
-        <CButton @click="setTransfer()" color="success">Archivar</CButton>
+        <CButton @click="closeModal('Archivar')" color="danger">Cerrar</CButton>
+        <CButton @click="ArchivarFile()" color="success">Archivar</CButton>
       </template>
     </CModal>
 
@@ -178,6 +181,7 @@ export default {
     return {
       items:[],
       itemsLegal: [],
+      is_admin: true,
       token: '?token=' + localStorage.getItem("api_token"),
       fieldsLegal:[
         {
@@ -291,7 +295,8 @@ export default {
             text: '',
             observacion: '',
             select: '',
-            user: ''
+            user: '',
+            status: 0
           }
         },
       }
@@ -299,13 +304,60 @@ export default {
   },
   mounted(){
     this.getLegalData();
+    this.getUserRole();
 
   },
   methods: {
+    validateForm(form){
+      if(form === 'history'){
+        if (this.Modals.ModalHistory.data.observacion.length > 0 && this.Modals.ModalHistory.data.select !== ''){
+          return true
+        }else if(this.Modals.ModalHistory.data.observacion.length > 0 && !this.Modals.ModalHistory.data.select !== ''){
+          return 'no se selecciono el evento'
+        }else if(!this.Modals.ModalHistory.data.observacion.length > 0 && this.Modals.ModalHistory.data.select !== ''){
+          return 'no se ingreso el texto del seguimiento'
+        }else{
+          return 'no se selecciono ningun elemento'
+        }
+      }else if (form === 'transfer'){
+        if(this.Modals.ModalTransfer.data.observacion.length > 0 && this.Modals.ModalTransfer.data.user !== '' && this.Modals.ModalTransfer.data.select !== ''){
+          return true
+        }else if(this.Modals.ModalTransfer.data.observacion.length > 0 && !this.Modals.ModalTransfer.data.user !== '' && !this.Modals.ModalTransfer.data.select !== ''){
+          return 'No se selecciono usuario y evento'
+        }else if(this.Modals.ModalTransfer.data.observacion.length > 0 && this.Modals.ModalTransfer.data.user !== '' && !this.Modals.ModalTransfer.data.select !== ''){
+          return 'No se selecciono evento'
+        }else if(this.Modals.ModalTransfer.data.observacion.length > 0 && !this.Modals.ModalTransfer.data.user !== '' && this.Modals.ModalTransfer.data.select !== ''){
+          return 'No se selecciono usuario'
+        }else if(!this.Modals.ModalTransfer.data.observacion.length > 0 && this.Modals.ModalTransfer.data.user !== '' && this.Modals.ModalTransfer.data.select !== ''){
+          return 'No se agrego comentario'
+        }else {
+          return 'No se selecciono ningun elemento'
+        }
+      }else if(form === 'archivar'){
+        if (this.Modals.ModalArchivar.data.observacion.length > 0){
+          return true
+        }else if (!this.Modals.ModalArchivar.data.observacion.length > 0){
+          return 'No se ingreso observación'
+        }
+      }
+    },
+    getUserRole(){
+      axios.get(this.$apiAdress + api_router[0].getUserRole + this.token)
+      .then(response => {
+        console.log(response.data)
+        const { menuroles } = response.data
+        menuroles.split(",").forEach(element => {
+          if (element === 'admin_legal') {
+            this.is_admin = !this.is_admin
+          }
+        })
+      })
+    },
     getLegalData() {
       axios.get( this.$apiAdress + '/api/ver'+ this.token)
       .then(response => {
         this.items =  response.data;
+        console.log(response.data)
       })
       .catch(error => {
         this.$router.push({ path: '/login' });
@@ -331,6 +383,8 @@ export default {
         this.TransferModal = false
         this.optionsEvent = []
         this.Modals.ModalTransfer.optionUser = []
+      }else if ( modal === 'Archivar') {
+        this.ArhivarFile = false
       }
     },
     getHistoryData(number){
@@ -375,6 +429,8 @@ export default {
         this.Modals.ModalTransfer.data.user = ''
         this.Modals.ModalTransfer.data.select = ''
         this.Modals.ModalTransfer.data.observacion = ''
+      }else if (modal === 4) {
+        this.Modals.ModalArchivar.data.observacion = ''
       }
 
 
@@ -465,38 +521,51 @@ export default {
       })
     },
     setTransfer(){
-      axios.post(this.$apiAdress + api_router[0].setEvent + this.token, {
-        expediente: this.Modals.ModalTransfer.data.expediente,
-        evento: this.Modals.ModalTransfer.data.select,
-        observaciones: this.Modals.ModalTransfer.data.observacion,
-        comercial: this.Modals.ModalTransfer.data.procedencia,
-        user_id: this.Modals.ModalTransfer.data.user,
-        flag: true
-      })
-      .then(response => {
-        if (response.status === 202){
-          this.reset(3)
-          this.closeModal('Transfer')
-          this.getLegalData();
-          this.$swal({
-            icon: "success",
-            title: "Trasladado",
-            showConfirmButton: false,
-            timer: 2500,
-          });
-        }else{
-          this.reset(3)
-          this.closeModal('Transfer')
-          this.$swal({
-            icon: "error",
-            title: "Error de servidor",
-            showConfirmButton: false,
-            timer: 2500,
-          });
-        }
+      const result = this.validateForm('transfer')
+
+      if (result === true){
+        axios.post(this.$apiAdress + api_router[0].setEvent + this.token, {
+          expediente: this.Modals.ModalTransfer.data.expediente,
+          evento: this.Modals.ModalTransfer.data.select,
+          observaciones: this.Modals.ModalTransfer.data.observacion,
+          comercial: this.Modals.ModalTransfer.data.procedencia,
+          user_id: this.Modals.ModalTransfer.data.user,
+          flag: true
+        })
+            .then(response => {
+              if (response.status === 202){
+                this.reset(3)
+                this.closeModal('Transfer')
+                this.getLegalData();
+                this.$swal({
+                  icon: "success",
+                  title: "Trasladado",
+                  showConfirmButton: false,
+                  timer: 2500,
+                });
+              }else{
+                this.reset(3)
+                this.closeModal('Transfer')
+                this.$swal({
+                  icon: "error",
+                  title: "Error de servidor",
+                  showConfirmButton: false,
+                  timer: 2500,
+                });
+              }
 
 
-      })
+            })
+
+      }else {
+        this.$swal({
+          icon: "error",
+          title: result,
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }
+
 
     },
     transferData(contrato, precedent, event, text){
@@ -509,47 +578,107 @@ export default {
       this.getEvent(this.Modals.ModalTransfer.optionEvent);
       this.getUserLegal(this.Modals.ModalTransfer.optionUser)
     },
-    fileData(contrato, precedent, event, text){
+    fileData(contrato, precedent, event, text, Title, status,color){
       this.ArhivarFile = true
-      this.Modals.ModalArchivar.title = 'Archivar Expediente No. ' + contrato + '  /  ' + precedent
+      this.Modals.ModalArchivar.title = Title + ' Expediente No. ' + contrato + '  /  ' + precedent
       this.Modals.ModalArchivar.data.expediente = contrato
       this.Modals.ModalArchivar.data.procedencia = precedent
       this.Modals.ModalArchivar.data.evento = event
       this.Modals.ModalArchivar.data.text = text
+      this.Modals.ModalArchivar.data.status = status
+      this.Modals.ModalArchivar.color  = color
       this.getEvent(this.Modals.ModalArchivar.optionEvent);
       this.getUserLegal(this.Modals.ModalArchivar.optionUser)
     },
     setComment(){
-      axios.post(this.$apiAdress + api_router[0].setEvent + this.token, {
-        expediente: this.Modals.ModalTransfer.data.expediente,
-        evento: this.Modals.ModalTransfer.data.select,
-        observaciones: this.Modals.ModalTransfer.data.observacion,
-        comercial: this.Modals.ModalTransfer.data.procedencia,
-        flag: null
-      })
-      .then(response => {
+      const result = this.validateForm('history')
+      console.log(result)
+      if(result === true) {
+        axios.post(this.$apiAdress + api_router[0].setEvent + this.token, {
+          expediente: this.Modals.ModalHistory.data.expediente,
+          evento: this.Modals.ModalHistory.data.select,
+          observaciones: this.Modals.ModalHistory.data.observacion,
+          comercial: this.Modals.ModalHistory.data.procedencia,
+          flag: null
+        })
+        .then(response => {
+          if (response.status === 202){
+            this.getHistoryData(this.Modals.ModalHistory.data.expediente);
+            this.$swal({
+              icon: "success",
+              title: "Agregado",
+              showConfirmButton: false,
+              timer: 2500,
+            });
+            this.reset(1)
+          }else{
+            this.$swal({
+              icon: "error",
+              title: "Error de servidor",
+              showConfirmButton: false,
+              timer: 2500,
+            });
+          }
 
-        if (response.status === 202){
-          this.getHistoryData(this.Modals.ModalHistory.data.expediente);
-          this.$swal({
-            icon: "success",
-            title: "Agregado",
-            showConfirmButton: false,
-            timer: 2500,
-          });
-          this.reset(1)
-        }else{
-          this.$swal({
-            icon: "error",
-            title: "Error de servidor",
-            showConfirmButton: false,
-            timer: 2500,
-          });
-        }
+
+        })
+
+      }else{
+        this.$swal({
+          icon: "error",
+          title: result,
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }
+
+    },
+    ArchivarFile(){
+
+      const result = this.validateForm('archivar')
+      if (result === true){
+        axios.post(this.$apiAdress + api_router[0].setEvent + this.token, {
+          expediente: this.Modals.ModalArchivar.data.expediente,
+          evento: this.Modals.ModalArchivar.data.status,
+          observaciones: this.Modals.ModalArchivar.data.observacion,
+          comercial: this.Modals.ModalArchivar.data.procedencia,
+          flag: false
+        })
+            .then(response => {
+
+              if (response.status === 202){
+                this.reset(4)
+                this.closeModal('Archivar')
+                this.getLegalData();
+                this.$swal({
+                  icon: "success",
+                  title: "Archivado",
+                  showConfirmButton: false,
+                  timer: 2500,
+                });
+              }else{
+                this.reset(4)
+                this.closeModal('Archivar')
+                this.$swal({
+                  icon: "error",
+                  title: "Error de servidor",
+                  showConfirmButton: false,
+                  timer: 2500,
+                });
+              }
 
 
-      })
-    }
+            })
+      }else{
+        this.$swal({
+          icon: "error",
+          title: result,
+          showConfirmButton: false,
+          timer: 2500,
+        });
+      }
+
+    },
   }
 }
 </script>

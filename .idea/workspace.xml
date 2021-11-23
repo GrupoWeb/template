@@ -3,6 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="dc072df0-6b0e-4dd8-a051-049b6446b311" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coreui/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/router/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coreui/src/router/router_path.js" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/router/router_path.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coreui/src/views/Legals/Expediente.vue" beforeDir="false" afterPath="$PROJECT_DIR$/coreui/src/views/Legals/Expediente.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravel/app/Http/Controllers/LegalController.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/app/Http/Controllers/LegalController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravel/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -169,7 +174,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../RUG/codigo_fuente_2021/RUG" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -190,6 +195,7 @@
       <workItem from="1637255141742" duration="93000" />
       <workItem from="1637255247883" duration="10354000" />
       <workItem from="1637555061951" duration="171000" />
+      <workItem from="1637686187713" duration="14646000" />
     </task>
     <servers />
   </component>

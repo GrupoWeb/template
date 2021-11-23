@@ -5,6 +5,7 @@ const api_router = [
         setEvent: '/api/setEvent',
         getInfoByCode: '/api/getInfoByCode',
         getUserLegal: '/api/getUserLegal',
+        getUserRole: '/api/getUserRole',
     }
 ]
 
