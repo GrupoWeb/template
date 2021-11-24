@@ -1,12 +1,12 @@
 <template>
   <CFooter :fixed="false">
     <div>
-      <a href="https://coreui.io" target="_blank">CoreUI</a>
-      <span class="ml-1">&copy; {{new Date().getFullYear()}} creativeLabs.</span>
+      <a href="https://www.diaco.gob.gt/" target="_blank">DIACO</a>
+      <span class="ml-1">&copy; {{new Date().getFullYear()}} Ministerio de Economía.</span>
     </div>
     <div class="ml-auto">
-      <span class="mr-1">Powered by</span>
-      <a href="https://coreui.io/vue" target="_blank">CoreUI for Vue</a>
+      <span class="mr-1">Desarrollado por</span>
+      <a href="https://www.mineco.gob.gt/" target="_blank">Dirección de Tecnologías de la Información</a>
     </div>
   </CFooter>
 </template>

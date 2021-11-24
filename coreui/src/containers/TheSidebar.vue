@@ -3,6 +3,7 @@
     fixed
     :minimize="minimize"
     :show="show"
+    colorScheme="light"
     @update:show="(value) => $store.commit('set', ['sidebarShow', value])"
   >
 <!--    logo sidebar-->
@@ -127,14 +128,14 @@ export default {
     })
     let self = this;
 
-    console.log(this.$apiAdress);
+
 
     axios.get( this.$apiAdress + '/api/menu?token=' + localStorage.getItem("api_token") )
     .then(function (response) {
       self.nav = self.rebuildData(response.data);
-      console.log('response ', response)
+
     }).catch(function (error) {
-      console.log(error);
+
       self.$router.push({ path: '/login' });
     });
   }

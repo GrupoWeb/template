@@ -11,7 +11,7 @@ import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 
 
-Vue.use(ElementUI)
+
 Vue.use(VueSweetalert2)
 Vue.prototype.$apiAdress = 'http://127.0.0.1:8000'
 Vue.config.performance = true

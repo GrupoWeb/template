@@ -26,8 +26,8 @@
                   <template #prepend-content><CIcon name="cil-lock-locked"/></template>
                 </CInput>
                 <CRow>
-                  <CCol col="6">
-                    <CButton type="submit" color="primary" class="px-4">Entrar</CButton>
+                  <CCol col="12">
+                    <CButton type="submit" color="success" class="px-4">Entrar</CButton>
                   </CCol>
 <!--                  <CCol col="6" class="text-right">-->
 <!--                    <CButton color="link" class="px-0">Forgot password?</CButton>-->
@@ -35,6 +35,17 @@
                 </CRow>
               </CForm>
             </CCardBody>
+          </CCard>
+          <CCard
+            class="text-center py-5 d-md-down-none"
+            body-wrapper
+          >
+            <CImg
+                src="img/avatars/logo.jpg"
+                block
+                class="mb-2"
+                :fluidGrow='true'
+            />
           </CCard>
 <!--          <CCard-->
 <!--            color="primary"-->
