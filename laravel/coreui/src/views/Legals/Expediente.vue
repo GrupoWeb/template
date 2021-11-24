@@ -344,7 +344,6 @@ export default {
     getUserRole(){
       axios.get(this.$apiAdress + api_router[0].getUserRole + this.token)
       .then(response => {
-        console.log(response.data)
         const { menuroles } = response.data
         menuroles.split(",").forEach(element => {
           if (element === 'admin_legal') {
@@ -357,7 +356,6 @@ export default {
       axios.get( this.$apiAdress + '/api/ver'+ this.token)
       .then(response => {
         this.items =  response.data;
-        console.log(response.data)
       })
       .catch(error => {
         this.$router.push({ path: '/login' });
