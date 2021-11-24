@@ -17,7 +17,7 @@
       gtag('config', 'UA-118965717-7');
     </script>
 
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ secure_asset(asset('css/app.css')) }}" rel="stylesheet">
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
