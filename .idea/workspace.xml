@@ -4,6 +4,9 @@
     <list default="true" id="dc072df0-6b0e-4dd8-a051-049b6446b311" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/laravel/coreui/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/coreui/src/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravel/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/database/seeders/DatabaseSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravel/database/seeders/MenusTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/database/seeders/MenusTableSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravel/database/seeders/UsersAndNotesSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/database/seeders/UsersAndNotesSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +194,7 @@
       <workItem from="1637255141742" duration="93000" />
       <workItem from="1637255247883" duration="10354000" />
       <workItem from="1637555061951" duration="171000" />
-      <workItem from="1637686187713" duration="25525000" />
+      <workItem from="1637686187713" duration="30965000" />
     </task>
     <servers />
   </component>
