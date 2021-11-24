@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="dc072df0-6b0e-4dd8-a051-049b6446b311" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/resources/views/coreui/homepage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/resources/views/coreui/homepage.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/laravel/coreui/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/coreui/src/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +191,7 @@
       <workItem from="1637255141742" duration="93000" />
       <workItem from="1637255247883" duration="10354000" />
       <workItem from="1637555061951" duration="171000" />
-      <workItem from="1637686187713" duration="25363000" />
+      <workItem from="1637686187713" duration="25525000" />
     </task>
     <servers />
   </component>
