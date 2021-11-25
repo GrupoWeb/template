@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="dc072df0-6b0e-4dd8-a051-049b6446b311" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/coreui/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/coreui/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/database/seeders/MenusTableSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/database/seeders/MenusTableSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/laravel/database/seeders/UsersAndNotesSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/laravel/database/seeders/UsersAndNotesSeeder.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,7 +169,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../k8s_srv_mineco" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -194,7 +190,8 @@
       <workItem from="1637255141742" duration="93000" />
       <workItem from="1637255247883" duration="10354000" />
       <workItem from="1637555061951" duration="171000" />
-      <workItem from="1637686187713" duration="30965000" />
+      <workItem from="1637686187713" duration="31560000" />
+      <workItem from="1637860683422" duration="859000" />
     </task>
     <servers />
   </component>
